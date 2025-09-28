@@ -1,0 +1,14 @@
+<nav class="app-header">
+  <div class="controls">
+    <button *ngIf="!isAuthenticate" class="btn btn-primary" (click)="onLogin()">
+      Login
+    </button>
+
+    <div *ngIf="isAuthenticate">
+      <button class="btn btn-outline" (click)="onAddEvents()">
+        Add Events
+      </button>
+      <button class="btn btn-danger" (click)="onLogout()">Logout</button>
+    </div>
+  </div>
+</nav>

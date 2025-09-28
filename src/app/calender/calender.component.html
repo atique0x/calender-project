@@ -1,0 +1,43 @@
+<div class="calendar-container">
+  <!-- Navbar -->
+  <div class="calendar-navbar">
+    <div class="nav-left">
+      <button (click)="onPrevious()">&#9664;</button>
+      <span>{{ months[currentMonth] }} {{ currentYear }}</span>
+      <button (click)="onNext()">&#9654;</button>
+    </div>
+    <div class="nav-right">
+      <app-header></app-header>
+    </div>
+  </div>
+
+  <!-- Weekdays -->
+  <div class="calendar-weekdays">
+    <div *ngFor="let day of weekdays">{{ day }}</div>
+  </div>
+
+  <!-- Days -->
+  <div class="calendar-days">
+    <div class="calendar-day" *ngFor="let d of days">
+      <div class="date-label">
+        <span *ngIf="d.date.getDate() === 1">
+          {{ months[d.date.getMonth()].slice(0, 3) }}
+        </span>
+        <span>{{ d.date.getDate() }}</span>
+      </div>
+
+      <ng-container *ngFor="let event of getEventsForDay(d.date)">
+        <div
+          class="event-bar"
+          [ngClass]="{
+            'event-pending': event.status === 'pending',
+            'event-ongoing': event.status === 'ongoing',
+            'event-complete': event.status === 'complete'
+          }"
+        >
+          {{ event.title }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

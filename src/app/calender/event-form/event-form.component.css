@@ -1,0 +1,91 @@
+/* Form container */
+form {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 28px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* Each field wrapper */
+form div {
+  margin-bottom: 22px;
+}
+
+/* Labels (keep above inputs) */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Inputs, textarea, select */
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+  box-sizing: border-box;
+}
+
+/* Hover + Focus effect */
+input:hover,
+textarea:hover,
+select:hover {
+  background: #f3f4f6;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Error messages */
+.error {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #dc2626;
+}
+
+/* Button */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover */
+button[type="submit"]:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(29, 78, 216, 0.3);
+}
+
+/* Disabled button */
+button[type="submit"]:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+  box-shadow: none;
+}

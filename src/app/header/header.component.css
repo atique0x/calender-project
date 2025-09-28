@@ -1,0 +1,55 @@
+/* ===== App Header (Right Navbar Buttons) ===== */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Shared Button Style ===== */
+.app-header .btn {
+  border: 1px solid #d1d5db;
+  padding: 5px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+/* ===== Button Variants ===== */
+.app-header .btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.app-header .btn-outline {
+  background: #fff;
+  color: #111827;
+}
+
+.app-header .btn-danger {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+/* ===== Hover Effects ===== */
+.app-header .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .app-header {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .app-header .btn {
+    padding: 4px 10px;
+    font-size: 13px;
+  }
+}

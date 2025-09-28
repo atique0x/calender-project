@@ -1,0 +1,77 @@
+<form #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm)">
+  <h3>Add Events</h3>
+  <div>
+    <label for="title">Title*</label>
+    <input
+      type="text"
+      name="title"
+      ngModel
+      required
+      #title="ngModel"
+      placeholder="Provide event title"
+    />
+    <div *ngIf="title.invalid && title.touched" class="error">
+      Title is required
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description*</label>
+    <textarea
+      name="description"
+      ngModel
+      required
+      #desc="ngModel"
+      placeholder="Write description of the event"
+    ></textarea>
+    <div *ngIf="desc.invalid && desc.touched" class="error">
+      Description is required
+    </div>
+  </div>
+
+  <div>
+    <label for="status">Status*</label>
+    <select id="status" name="status" ngModel required #status="ngModel">
+      <option value="" disabled selected>Select Status</option>
+      <option *ngFor="let s of statusOptions" [value]="s">
+        {{ s | titlecase }}
+      </option>
+    </select>
+
+    <div *ngIf="status.invalid && status.touched" class="error">
+      Status is required
+    </div>
+  </div>
+
+  <div>
+    <label for="startDate">Start Date*</label>
+    <input
+      type="date"
+      name="startDate"
+      [(ngModel)]="startDate"
+      [max]="endDate || null"
+      required
+      #startDateModel="ngModel"
+    />
+    <div *ngIf="startDateModel.invalid && startDateModel.touched" class="error">
+      Start date is required
+    </div>
+  </div>
+
+  <div>
+    <label for="endDate">End Date*</label>
+    <input
+      type="date"
+      name="endDate"
+      [(ngModel)]="endDate"
+      [min]="startDate || null"
+      required
+      #endDateModel="ngModel"
+    />
+    <div *ngIf="endDateModel.invalid && endDateModel.touched" class="error">
+      End date is required
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!eventForm.valid">Add Event</button>
+</form>

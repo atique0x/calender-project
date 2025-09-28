@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>{{ isLogin ? "Login" : "Signup" }}</h2>
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" name="email" required email #email="ngModel" ngModel />
+      <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="error"
+      >
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        name="password"
+        required
+        minlength="4"
+        #password="ngModel"
+        ngModel
+      />
+      <div
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="error"
+      >
+        <div *ngIf="password.errors?.['required']">Password is required.</div>
+        <div *ngIf="password.errors?.['minlength']">Minimum 4 characters.</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="authForm.invalid">
+      {{ isLogin ? "Login" : "Signup" }}
+    </button>
+  </form>
+
+  <p class="switch">
+    {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+    <button type="button" class="switch-btn" (click)="toggleForm()">
+      {{ isLogin ? "Signup" : "Login" }}
+    </button>
+  </p>
+  <p>
+    <button type="button" (click)="backHome()" class="switch-btn">
+      Back to home
+    </button>
+  </p>
+</div>
