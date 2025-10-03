@@ -1,5 +1,4 @@
 <div class="calendar-container">
-  <!-- Navbar -->
   <div class="calendar-navbar">
     <div class="nav-left">
       <button (click)="onPrevious()">&#9664;</button>
@@ -11,22 +10,22 @@
     </div>
   </div>
 
-  <!-- Weekdays -->
   <div class="calendar-weekdays">
-    <div *ngFor="let day of weekdays">{{ day }}</div>
+    <div *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+      {{ day }}
+    </div>
   </div>
 
-  <!-- Days -->
   <div class="calendar-days">
-    <div class="calendar-day" *ngFor="let d of days">
+    <div class="calendar-day" *ngFor="let day of days; let i = index">
       <div class="date-label">
-        <span *ngIf="d.date.getDate() === 1">
-          {{ months[d.date.getMonth()].slice(0, 3) }}
+        <span *ngIf="day.date.getDate() === 1">
+          {{ months[day.date.getMonth()].slice(0, 3) }}
         </span>
-        <span>{{ d.date.getDate() }}</span>
+        <span>{{ day.date.getDate() }}</span>
       </div>
 
-      <ng-container *ngFor="let event of getEventsForDay(d.date)">
+      <ng-container *ngFor="let event of getEventsForDay(day.date)">
         <div
           class="event-bar"
           [ngClass]="{
