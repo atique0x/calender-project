@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +10,25 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit {
   isAuthenticate = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.checkAuth();
   }
 
   checkAuth() {
-    this.isAuthenticate = this.authService.isLoggedIn(); // CHANGED
+    this.isAuthenticate = this.authService.isLoggedIn();
   }
 
   onLogin() {
-    this.router.navigate(['auth']);
+    const date = this.route.snapshot.queryParams['date'];
+    this.router.navigate(['auth'], {
+      queryParams: { date },
+    });
   }
 
   onAddEvents() {

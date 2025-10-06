@@ -3,14 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
-import { AuthService } from './auth/auth.service';
-import { CalenderService } from './calender.service';
+import { AuthService } from './services/auth.service';
+import { CalenderService } from './services/calender.service';
 
 import { AppComponent } from './app.component';
 import { CalenderComponent } from './calender/calender.component';
 import { AuthComponent } from './auth/auth.component';
 import { HeaderComponent } from './header/header.component';
 import { EventFormComponent } from './calender/event-form/event-form.component';
+import { ModalEventComponent } from './shared/modal-event/modal-event.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { EventFormComponent } from './calender/event-form/event-form.component';
     AuthComponent,
     HeaderComponent,
     EventFormComponent,
+    ModalEventComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [CalenderService, AuthService],

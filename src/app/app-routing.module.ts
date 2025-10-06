@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: CalenderComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'event-form', component: EventFormComponent },
+  { path: 'event-form/:id', component: EventFormComponent },
 ];
 
 @NgModule({

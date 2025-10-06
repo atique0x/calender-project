@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,26 +13,28 @@ export class AuthComponent implements OnInit {
   isLogin = true;
   isAuthenticate = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.isAuthenticate = this.authService.isLoggedIn();
   }
 
   onSubmit(form: NgForm) {
-    const email = form.value.email;
-    const password = form.value.password;
+    const { email, password } = form.value;
 
     if (this.isLogin) {
-      const success = this.authService.login(email, password);
-      if (success) this.router.navigate(['/']);
-      else alert('Wrong credentials. Please login with correct one.');
+      if (this.authService.login(email, password)) {
+        this.navigateBack();
+      } else alert('Wrong credentials. Please login with correct one.');
     } else {
-      const success = this.authService.register(email, password);
-      if (!success) alert('User already exists. Try with new one.');
-      else {
+      if (this.authService.register(email, password)) {
         alert('Registration successful. You can now login.');
-        this.isLogin = true;
+      } else {
+        alert('User already exists. Try with a new one.');
       }
     }
     form.reset();
@@ -43,6 +45,13 @@ export class AuthComponent implements OnInit {
   }
 
   backHome() {
-    this.router.navigate(['/']);
+    this.navigateBack();
+  }
+
+  private navigateBack() {
+    const date = this.route.snapshot.queryParams['date'];
+    this.router.navigate(['/'], {
+      queryParams: date ? { date } : {},
+    });
   }
 }

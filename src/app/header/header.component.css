@@ -1,11 +1,9 @@
-/* ===== App Header (Right Navbar Buttons) ===== */
 .app-header {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* ===== Shared Button Style ===== */
 .app-header .btn {
   border: 1px solid #d1d5db;
   padding: 5px 12px;
@@ -17,7 +15,6 @@
   transition: all 0.2s ease;
 }
 
-/* ===== Button Variants ===== */
 .app-header .btn-primary {
   background: #2563eb;
   color: #fff;
@@ -35,13 +32,16 @@
   border-color: #ef4444;
 }
 
-/* ===== Hover Effects ===== */
 .app-header .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* ===== Responsive ===== */
+.isAuthenticate {
+  display: flex;
+  gap: 12px;
+}
+
 @media (max-width: 600px) {
   .app-header {
     justify-content: center;

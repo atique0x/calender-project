@@ -1,42 +1,79 @@
 <div class="calendar-container">
+  <!-- Navbar -->
   <div class="calendar-navbar">
-    <div class="nav-left">
+    <div class="calendar-navbar-item">
       <button (click)="onPrevious()">&#9664;</button>
       <span>{{ months[currentMonth] }} {{ currentYear }}</span>
       <button (click)="onNext()">&#9654;</button>
+
+      <button class="today-btn" (click)="onToday()">Today</button>
     </div>
-    <div class="nav-right">
+    <div>
       <app-header></app-header>
     </div>
   </div>
 
+  <!-- Weekdays -->
   <div class="calendar-weekdays">
     <div *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
       {{ day }}
     </div>
   </div>
 
+  <!-- Calendar Days -->
   <div class="calendar-days">
-    <div class="calendar-day" *ngFor="let day of days; let i = index">
+    <div
+      class="calendar-day"
+      (dblclick)="addNewEvent(day.date)"
+      [ngClass]="{ 'other-month': !day.currentMonth }"
+      *ngFor="let day of days"
+    >
       <div class="date-label">
         <span *ngIf="day.date.getDate() === 1">
           {{ months[day.date.getMonth()].slice(0, 3) }}
         </span>
-        <span>{{ day.date.getDate() }}</span>
+        <span [ngClass]="{ today: isToday(day.date) }">{{
+          day.date.getDate()
+        }}</span>
       </div>
 
-      <ng-container *ngFor="let event of getEventsForDay(day.date)">
-        <div
-          class="event-bar"
-          [ngClass]="{
-            'event-pending': event.status === 'pending',
-            'event-ongoing': event.status === 'ongoing',
-            'event-complete': event.status === 'complete'
-          }"
-        >
-          {{ event.title }}
+      <ng-container *ngIf="getSlotsForDate(day.date) as slots">
+        <div class="event-rows">
+          <ng-container *ngFor="let ev of slots; let i = index">
+            <div
+              *ngIf="i < visibleRows"
+              class="event-bar"
+              [ngClass]="{
+                'event-pending': ev?.status === 'pending',
+                'event-ongoing': ev?.status === 'ongoing',
+                'event-complete': ev?.status === 'complete',
+                'empty-slot': !ev,
+                'start-event': isStart(day.date, i),
+                'end-event': isEnd(day.date, i)
+              }"
+              (dblclick)="onEditEvent($event, ev)"
+            >
+              <span *ngIf="ev && isStart(day.date, i)">
+                {{ ev.title }}
+              </span>
+            </div>
+          </ng-container>
+
+          <div
+            class="more-btn"
+            *ngIf="getEventCount(day.date) > visibleRows"
+            (click)="openDayModal(day.date)"
+          >
+            {{ getEventCount(day.date) - visibleRows }} More
+          </div>
         </div>
       </ng-container>
     </div>
   </div>
 </div>
+
+<app-modal-event
+  [date]="modalDate"
+  [events]="modalDate ? getEventsForModal(modalDate) : []"
+  (close)="closeModal()"
+></app-modal-event>

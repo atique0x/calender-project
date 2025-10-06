@@ -1,0 +1,14 @@
+<div class="modal" *ngIf="date">
+  <div class="modal-content">
+    <h3>Events on {{ date | date : "fullDate" }}</h3>
+    <ul *ngIf="events.length > 0; else noEvents">
+      <li *ngFor="let ev of events">
+        {{ ev.title }} ({{ ev.status | titlecase }})
+      </li>
+    </ul>
+    <ng-template #noEvents>
+      <p style="text-align: center; color: #999">No events on this day</p>
+    </ng-template>
+    <button (click)="onClose()">Close</button>
+  </div>
+</div>
