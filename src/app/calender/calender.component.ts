@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 import { MONTHS } from '../data/months.data';
 
 import { EventInterface } from '../types/event.interface';
 import { CalenderService } from '../services/calender.service';
-
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-calender',

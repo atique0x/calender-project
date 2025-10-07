@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticate = false;
   private destroy$ = new Subject<void>();
 
@@ -19,10 +19,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkAuth();
-  }
-
-  checkAuth() {
     this.authService.authState
       .pipe(takeUntil(this.destroy$))
       .subscribe((val) => (this.isAuthenticate = val));
@@ -35,12 +31,16 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
   onAddEvents() {
     this.router.navigate(['event-form']);
   }
 
-  onLogout() {
-    this.authService.logout();
-    this.checkAuth();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
