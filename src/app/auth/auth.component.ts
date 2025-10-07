@@ -48,7 +48,7 @@ export class AuthComponent implements OnInit {
 
   private navigateBack() {
     const date = this.route.snapshot.queryParams['date'];
-    this.router.navigate(['/calender'], {
+    this.router.navigate([''], {
       queryParams: date ? { date } : {},
     });
   }
