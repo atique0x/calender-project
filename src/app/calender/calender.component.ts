@@ -70,7 +70,7 @@ export class CalenderComponent implements OnInit, OnDestroy {
   }
 
   setQueryParams() {
-    this.router.navigate([''], {
+    this.router.navigate(['calender'], {
       queryParams: {
         date: `${this.currentYear}-${String(this.currentMonth + 1).padStart(
           2,
