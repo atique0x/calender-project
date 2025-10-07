@@ -1,30 +1,24 @@
 <div class="calendar-container">
-  <!-- Navbar -->
   <div class="calendar-navbar">
     <div class="calendar-navbar-item">
       <button (click)="onPrevious()">&#9664;</button>
       <span>{{ months[currentMonth] }} {{ currentYear }}</span>
       <button (click)="onNext()">&#9654;</button>
-
-      <button class="today-btn" (click)="onToday()">Today</button>
     </div>
     <div>
-      <app-header></app-header>
+      <button class="today-btn" (click)="onToday()">Today</button>
     </div>
   </div>
 
-  <!-- Weekdays -->
   <div class="calendar-weekdays">
     <div *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
       {{ day }}
     </div>
   </div>
 
-  <!-- Calendar Days -->
   <div class="calendar-days">
     <div
       class="calendar-day"
-      (dblclick)="addNewEvent(day.date)"
       [ngClass]="{ 'other-month': !day.currentMonth }"
       *ngFor="let day of days"
     >
@@ -51,7 +45,6 @@
                 'start-event': isStart(day.date, i),
                 'end-event': isEnd(day.date, i)
               }"
-              (dblclick)="onEditEvent($event, ev)"
             >
               <span *ngIf="ev && isStart(day.date, i)">
                 {{ ev.title }}

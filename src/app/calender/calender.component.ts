@@ -5,7 +5,7 @@ import { MONTHS } from '../data/months.data';
 
 import { EventInterface } from '../types/event.interface';
 import { CalenderService } from '../services/calender.service';
-import { AuthService } from '../services/auth.service';
+
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -32,7 +32,6 @@ export class CalenderComponent implements OnInit, OnDestroy {
 
   constructor(
     private calenderService: CalenderService,
-    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -121,36 +120,6 @@ export class CalenderComponent implements OnInit, OnDestroy {
 
   getEventsForModal(date: Date): EventInterface[] {
     return this.getSlotsForDate(date).filter((e) => e) as EventInterface[];
-  }
-
-  addNewEvent(date: Date) {
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['auth']);
-      return;
-    }
-
-    const formattedDate = [
-      date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate(),
-    ]
-      .map((n) => n.toString().padStart(2, '0'))
-      .join('-');
-
-    this.router.navigate(['event-form'], {
-      queryParams: { date: formattedDate },
-    });
-  }
-
-  onEditEvent(e: MouseEvent, event: EventInterface | null) {
-    e.stopPropagation();
-    if (!event || !event.id) return;
-
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['auth']);
-      return;
-    }
-    this.router.navigate(['event-form', event.id]);
   }
 
   private initQueryParams() {

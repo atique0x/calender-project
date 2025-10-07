@@ -1,4 +1,8 @@
 <nav class="app-header">
+  <div>
+    <a routerLink="/">Calendar</a>
+  </div>
+
   <div class="controls">
     <button *ngIf="!isAuthenticate" class="btn btn-primary" (click)="onLogin()">
       Login

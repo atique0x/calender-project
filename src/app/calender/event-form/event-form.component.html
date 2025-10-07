@@ -1,5 +1,5 @@
 <form #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm)">
-  <h3>{{ isUpdate ? "Update Event" : "Add Event" }}</h3>
+  <h3>Add Event</h3>
   <div>
     <label for="title">Title*</label>
     <input
@@ -72,7 +72,5 @@
     </div>
   </div>
 
-  <button type="submit" [disabled]="!eventForm.valid">
-    {{ isUpdate ? "Update Event" : "Add Event" }}
-  </button>
+  <button type="submit" [disabled]="!eventForm.valid">Submit</button>
 </form>

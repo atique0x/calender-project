@@ -5,7 +5,8 @@ import { AuthComponent } from './auth/auth.component';
 import { EventFormComponent } from './calender/event-form/event-form.component';
 
 const routes: Routes = [
-  { path: '', component: CalenderComponent },
+  { path: '', redirectTo: '/calender', pathMatch: 'full' },
+  { path: 'calender', component: CalenderComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'event-form', component: EventFormComponent },
   { path: 'event-form/:id', component: EventFormComponent },

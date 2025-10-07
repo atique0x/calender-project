@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isAuthenticate = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private authService: AuthService,
@@ -21,7 +23,9 @@ export class HeaderComponent implements OnInit {
   }
 
   checkAuth() {
-    this.isAuthenticate = this.authService.isLoggedIn();
+    this.authService.authState
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((val) => (this.isAuthenticate = val));
   }
 
   onLogin() {

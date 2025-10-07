@@ -1,9 +1,40 @@
 .app-header {
   display: flex;
+  justify-content: space-between; /* Ensures left-right layout */
   align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px 16px;
   gap: 8px;
 }
 
+/* Left section (Calendar button behaves like a title) */
+.app-header > div:first-child a {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+}
+
+.app-header > div:first-child a:hover {
+  color: #2563eb;
+}
+
+/* Right controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Authenticated buttons group */
+.isAuthenticate {
+  display: flex;
+  gap: 12px;
+}
+
+/* General button styling */
 .app-header .btn {
   border: 1px solid #d1d5db;
   padding: 5px 12px;
@@ -15,6 +46,7 @@
   transition: all 0.2s ease;
 }
 
+/* Button Variants */
 .app-header .btn-primary {
   background: #2563eb;
   color: #fff;
@@ -32,18 +64,22 @@
   border-color: #ef4444;
 }
 
+/* Hover effects */
 .app-header .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-.isAuthenticate {
-  display: flex;
-  gap: 12px;
-}
-
+/* Responsive layout */
 @media (max-width: 600px) {
   .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .controls {
     justify-content: center;
     flex-wrap: wrap;
   }

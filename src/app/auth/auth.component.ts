@@ -11,7 +11,6 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthComponent implements OnInit {
   isLogin = true;
-  isAuthenticate = false;
 
   constructor(
     private authService: AuthService,
@@ -19,9 +18,7 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.isAuthenticate = this.authService.isLoggedIn();
-  }
+  ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
     const { email, password } = form.value;
@@ -33,6 +30,7 @@ export class AuthComponent implements OnInit {
     } else {
       if (this.authService.register(email, password)) {
         alert('Registration successful. You can now login.');
+        this.isLogin = true;
       } else {
         alert('User already exists. Try with a new one.');
       }

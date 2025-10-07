@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { UserInterface } from '../types/user.interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   private STORAGE_KEY = 'registeredUser';
   private SESSION_COOKIE = 'loggedInUser';
+
   users: UserInterface[] = [];
   testUser: UserInterface[] = [{ email: 'test@test.com', password: '1234' }];
+
+  authState = new BehaviorSubject<boolean>(this.isLoggedIn());
 
   constructor() {
     const stored = localStorage.getItem(this.STORAGE_KEY);
@@ -27,11 +31,13 @@ export class AuthService {
     );
     if (!user) return false;
     this.setCookie(this.SESSION_COOKIE, email, 30);
+    this.authState.next(true);
     return true;
   }
 
   logout() {
     this.deleteCookie(this.SESSION_COOKIE);
+    this.authState.next(false);
   }
 
   isLoggedIn(): boolean {
