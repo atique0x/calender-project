@@ -106,7 +106,7 @@ export class CalenderComponent implements OnInit, OnDestroy {
   }
 
   getEventCount(date: Date): number {
-    return this.getSlotsForDate(date).filter(Boolean).length;
+    return this.getSlotsForDate(date).filter((event) => event != null).length;
   }
 
   openDayModal(date: Date) {
@@ -118,7 +118,9 @@ export class CalenderComponent implements OnInit, OnDestroy {
   }
 
   getEventsForModal(date: Date): EventInterface[] {
-    return this.getSlotsForDate(date).filter((e) => e) as EventInterface[];
+    return this.getSlotsForDate(date).filter(
+      (event) => event
+    ) as EventInterface[];
   }
 
   private initQueryParams() {
